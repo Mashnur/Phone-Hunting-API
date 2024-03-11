@@ -3,7 +3,7 @@ const LoadPhone= async(SearchText)=>{
     const data =await res.json();
     const phones= data.data;
     // console.log(phones)
-    DisplayPhones(phones)
+    DisplayPhones(phones )
     
 }
 const DisplayPhones =phones=>{
@@ -35,12 +35,12 @@ const DisplayPhones =phones=>{
                 <div class="mt-2"> <!-- Add margin-top -->
                     <h2 class="text-gray-800 text-lg font-semibold">${phones.phone_name
                     }</h2> <!-- Apply text styles -->
-                    <p class="text-gray-600">${phones.slug
-                    }</p> <!-- Apply text styles -->
+                    <p class="text-gray-600">Phones
+                    </p> <!-- Apply text styles -->
                 </div>
             </div>
             <div class="px-4 py-2 flex justify-end"> <!-- Align actions to the right -->
-                <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Buy Now</button> <!-- Apply button styles -->
+                <button onclick="HandleShowDetail('${phones.slug}')"class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Show Details</button> <!-- Apply button styles -->
             </div>
         </div>
     </div>
@@ -52,9 +52,17 @@ const DisplayPhones =phones=>{
     ToggoleSpinner(false)
 
 }
+const HandleShowDetail=async(id)=>{
+  console.log("clicked",id)
+  const res= await fetch(` https://openapi.programming-hero.com/api/phone/${id}
+  `)
+  const data=await res.json();
+  console.log(data)
+  
+}
 
 // Search 
-const handleSearch =()=>{
+const handleSearch =(isShowAll)=>{
   ToggoleSpinner(true);
   const serachField= document.getElementById('Search-field')
   const SearchText=serachField.value;
@@ -70,4 +78,5 @@ const ToggoleSpinner=(isLoading)=>{
     loadingSpinner.classList.add('hidden')
   }
 }
+
 // LoadPhone();
