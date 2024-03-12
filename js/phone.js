@@ -40,7 +40,7 @@ const DisplayPhones =phones=>{
                 </div>
             </div>
             <div class="px-4 py-2 flex justify-end"> <!-- Align actions to the right -->
-                <button onclick="HandleShowDetail('${phones.slug}')"class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Show Details</button> <!-- Apply button styles -->
+                <button onclick="HandleShowDetail('${phones.slug}')"class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-center">Show Details</button> <!-- Apply button styles -->
             </div>
         </div>
     </div>
@@ -57,8 +57,21 @@ const HandleShowDetail=async(id)=>{
   const res= await fetch(` https://openapi.programming-hero.com/api/phone/${id}
   `)
   const data=await res.json();
-  console.log(data)
+  const phone = data.data;
+
+  console.log(phone)
+  showDeatail(phone);
   
+}
+const showDeatail =(phone)=>{
+  show_detail_modal.showModal()
+  const phoneName=document.getElementById('phone-name')
+  phoneName.innerText=phone.name;
+  const showdetailconatiner =document.getElementById('Show-deatl-container')
+  showdetailconatiner.innerHTML=` <img src="${phone.image}" alt="">
+  <p><span>Storage:</span>${phone.mainFeatures.storage}</p>
+
+  `
 }
 
 // Search 
